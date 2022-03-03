@@ -25,13 +25,13 @@ public class LZW {
 
         int code = R+1;  // R is codeword for EOF
 
-        while (input.length() > 0) {
+        while (line.length() > 0) {
             String s = st.longestPrefixOf(input);  // Find max prefix match s.
             input.write(st.get(s), W);      // Print s's encoding.
             int t = s.length();
-            if (t < input.length() && code < L)    // Add s to symbol table.
-                st.put(input.substring(0, t + 1), code++);
-            input = input.substring(t);            // Scan past s in input.
+            if (t < line.length() && code < L)    // Add s to symbol table.
+                st.put(line.substring(0, t + 1), code++);
+            input = line.substring(t);            // Scan past s in input.
         }
         input.write(R, W);
         input.close();
