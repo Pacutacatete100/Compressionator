@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class LZW {
     private static final int R = 256;
@@ -7,7 +9,7 @@ public class LZW {
     private static final int W = 32;
     
 
-    private LZW() { 
+    private LZW() { }
 
     /**
      * Reads a sequence of 8-bit bytes from standard input; compresses
@@ -15,8 +17,9 @@ public class LZW {
      * to standard output.
      */
     public static void compress() { 
-    	BufferedReader input = new BufferedReader(new FileReader(""));
-		String line = input.readLine();
+    	BufferedReader input = new BufferedReader(new FileReader("Compressionator/inputData.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Compressionator/compressedData.txt"));
+        String line = input.readLine();
         TST<Integer> st = new TST<Integer>();
 
         // since TST is not balanced, it would be better to insert in a different order
@@ -33,7 +36,7 @@ public class LZW {
                 st.put(line.substring(0, t + 1), code++);
             input = line.substring(t);            // Scan past s in input.
         }
-        input.write(R, W);
+        writer.write(R, W);
         input.close();
     } 
 
@@ -43,6 +46,8 @@ public class LZW {
      * the results to standard output.
      */
     public static void expand() {
+        BufferedReader input = new BufferedReader(new FileReader(""));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(""));
         String[] st = new String[L];
         int i; // next available codeword value
 
@@ -51,19 +56,19 @@ public class LZW {
             st[i] = "" + (char) i;
         st[i++] = "";                        // (unused) lookahead for EOF
 
-        int codeword = input.readInt(W);
-        if (codeword == R) return;           // expanded message is empty string
-        String val = st[codeword];
+        int size = Integer.parseInt(input.readLine());
+        if (size == R) return;           // expanded message is empty string
+        String val = st[size];
 
         while (true) {
-            input.write(val);
-            codeword = input.readInt(W);
-            if (codeword == R) break;
-            String s = st[codeword];
-            if (i == codeword) s = val + val.charAt(0);   // special case hack
+            writer.write(val);
+            size = input.readLine(W);
+            if (size == R) break;
+            String s = st[size];
+            if (i == size) s = val + val.charAt(0);   // special case hack
             if (i < L) st[i++] = val + s.charAt(0);
             val = s;
         }
         input.close();
     }
-    }
+}
