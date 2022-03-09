@@ -1,74 +1,116 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class LZW {
-    private static final int R = 256;
-    private static final int L = 4096;
-    private static final int W = 32;
+
+    public HashMap<String, Integer> dictionary = new HashMap<>();
+    public int dictSize = 256;
+    public String str = "";
+    public byte inputByte;
+    public byte[] buffer = new byte[3];
+    public boolean onleft = true;
+
+    public LZW() {}
     
-
-    private LZW() { }
-
-    /**
-     * Reads a sequence of 8-bit bytes from standard input; compresses
-     * them using LZW compression with 12-bit codewords; and writes the results
-     * to standard output.
-     */
-    public static void compress() { 
-    	BufferedReader input = new BufferedReader(new FileReader("Compressionator/inputData.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Compressionator/compressedData.txt"));
-        String line = input.readLine();
-        TST<Integer> st = new TST<Integer>();
-
-        // since TST is not balanced, it would be better to insert in a different order
-        for (int i = 0; i < R; i++)
-            st.put("" + (char) i, i);
-
-        int code = R+1;  // R is codeword for EOF
-
-        while (line.length() > 0) {
-            String s = st.longestPrefixOf(input);  // Find max prefix match s.
-            input.write(st.get(s), W);      // Print s's encoding.
-            int t = s.length();
-            if (t < line.length() && code < L)    // Add s to symbol table.
-                st.put(line.substring(0, t + 1), code++);
-            input = line.substring(t);            // Scan past s in input.
+    public void compress(String uncompressed) throws IOException {
+        // Dictionary size limit, builds dictionary
+        for (int i = 0; i < 256; i++) {
+            dictionary.put(Character.toString((char) i), i);
         }
-        writer.write(R, W);
-        input.close();
-    } 
 
-    /**
-     * Reads a sequence of bit encoded using LZW compression with
-     * 12-bit codewords from standard input; expands them; and writes
-     * the results to standard output.
-     */
-    public static void expand() {
-        BufferedReader input = new BufferedReader(new FileReader(""));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(""));
-        String[] st = new String[L];
-        int i; // next available codeword value
+        // Read input uncompress file & Write out compressed file
+        RandomAccessFile read = new RandomAccessFile(uncompressed, "r");
+        RandomAccessFile out = new RandomAccessFile(uncompressed.concat(
+                ".lzw"), "rw");
 
-        // initialize symbol table with all 1-character strings
-        for (i = 0; i < R; i++)
-            st[i] = "" + (char) i;
-        st[i++] = "";                        // (unused) lookahead for EOF
+        try {
+            // Reads the First Character from input file into the String
+            inputByte = read.readByte();
+            int i = new Byte(inputByte).intValue();
+            if (i < 0) {
+                i += 256;
+            }
+            char ch = (char) i;
+            str = "" + ch;
 
-        int size = Integer.parseInt(input.readLine());
-        if (size == R) return;           // expanded message is empty string
-        String val = st[size];
+            // Reads Character by Character
+            while (true) {
+                inputByte = read.readByte();
+                i = new Byte(inputByte).intValue();
 
-        while (true) {
-            writer.write(val);
-            size = input.readLine(W);
-            if (size == R) break;
-            String s = st[size];
-            if (i == size) s = val + val.charAt(0);   // special case hack
-            if (i < L) st[i++] = val + s.charAt(0);
-            val = s;
+                if (i < 0) {
+                    i += 256;
+                }
+                System.out.print(i + ", ");
+                ch = (char) i;
+
+                // If str + ch is in the dictionary..
+                // Set str to str + ch
+                if (dictionary.containsKey(str + ch)) {
+                    str = str + ch;
+                } else {
+                    String s12 = to12bit(dictionary.get(str));
+
+                    // Store the 12 bits into an array and then write it to the
+                    // output file
+                    if (onleft) {
+                        buffer[0] = (byte) Integer.parseInt(
+                                s12.substring(0, 8), 2);
+                        buffer[1] = (byte) Integer.parseInt(
+                                s12.substring(8, 12) + "0000", 2);
+                    } else {
+                        buffer[1] += (byte) Integer.parseInt(
+                                s12.substring(0, 4), 2);
+                        buffer[2] = (byte) Integer.parseInt(
+                                s12.substring(4, 12), 2);
+                        for (int b = 0; b < buffer.length; b++) {
+                            out.writeByte(buffer[b]);
+                            buffer[b] = 0;
+                        }
+                    }
+                    onleft = !onleft;
+
+                    // Add str + ch to the dictionary
+                    if (dictSize < 4096) {
+                        dictionary.put(str + ch, dictSize++);
+                    }
+
+                    // Set str to ch
+                    str = "" + ch;
+                }
+            }
+
+        } catch (IOException e) {
+            String str12bit = to12bit(dictionary.get(str));
+            if (onleft) {
+                buffer[0] = (byte) Integer.parseInt(str12bit.substring(0, 8), 2);
+                buffer[1] = (byte) Integer.parseInt(str12bit.substring(8, 12)
+                        + "0000", 2);
+                out.writeByte(buffer[0]);
+                out.writeByte(buffer[1]);
+            } else {
+                buffer[1] += (byte) Integer.parseInt(str12bit.substring(0, 4), 2);
+                buffer[2] = (byte) Integer.parseInt(str12bit.substring(4, 12), 2);
+
+                for (int b = 0; b < buffer.length; b++) {
+                    out.writeByte(buffer[b]);
+                    buffer[b] = 0;
+                }
+            }
+            read.close();
+            out.close();
         }
-        input.close();
+    }
+
+
+    public String to12bit(int i) {
+        String str = Integer.toBinaryString(i);
+        while (str.length() < 12) {
+            str = "0" + str;
+        }
+        return str;
     }
 }

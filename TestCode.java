@@ -11,8 +11,8 @@ public class TestCode {
 	
     //Main copy from https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
 	private static Map<Character, Integer> charMap;
-	private static String compressedData = "C:/Users/sadda/Compressionator/compressedData.txt/";
-	private static String inputData = "C:/Users/sadda/Compressionator/inputData.txt/";
+	private static String compressedData = "Compressionator/compressedData.txt/";
+	private static String inputData = "Compressionator/inputData.txt/";
 	
     public static void main(String[] args) throws IOException {
 

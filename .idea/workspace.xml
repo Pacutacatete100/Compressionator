@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="330216ae-69b7-43eb-9368-2630fd09f242" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Huffman.java" beforeDir="false" afterPath="$PROJECT_DIR$/Huffman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LZW.java" beforeDir="false" afterPath="$PROJECT_DIR$/LZW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/inputData.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +27,22 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="LZWTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LZWTest" />
+      <module name="Compressionator" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LZWTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -33,7 +52,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1646105920164</updated>
+      <workItem from="1646273803597" duration="702000" />
+      <workItem from="1646794483418" duration="994000" />
     </task>
+    <task id="LOCAL-00001" summary="edited LZW algorithm">
+      <created>1646274091713</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1646274091713</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="edited LZW algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited LZW algorithm" />
   </component>
 </project>
