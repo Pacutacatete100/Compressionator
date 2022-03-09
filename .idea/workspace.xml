@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="330216ae-69b7-43eb-9368-2630fd09f242" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LZW.java" beforeDir="false" afterPath="$PROJECT_DIR$/LZW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/inputData.txt" afterDir="false" />
-    </list>
+    <list default="true" id="330216ae-69b7-43eb-9368-2630fd09f242" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +47,7 @@
       <option name="presentableId" value="Default" />
       <updated>1646105920164</updated>
       <workItem from="1646273803597" duration="702000" />
-      <workItem from="1646794483418" duration="994000" />
+      <workItem from="1646794483418" duration="1302000" />
     </task>
     <task id="LOCAL-00001" summary="edited LZW algorithm">
       <created>1646274091713</created>
@@ -62,7 +56,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646274091713</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="finished LZW algorithm, added to gitignore,">
+      <created>1646795765842</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1646795765842</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -70,6 +71,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="edited LZW algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="edited LZW algorithm" />
+    <MESSAGE value="finished LZW algorithm, added to gitignore," />
+    <option name="LAST_COMMIT_MESSAGE" value="finished LZW algorithm, added to gitignore," />
   </component>
 </project>
